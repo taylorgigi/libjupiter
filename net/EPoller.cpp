@@ -17,6 +17,11 @@ EPoller::EPoller():
     }
 }
 
+EPoller::~EPoller()
+{
+    close(efd);
+}
+
 void EPoller::UpdateChannel(Channel* channel)
 {
 }
