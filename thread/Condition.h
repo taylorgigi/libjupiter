@@ -4,10 +4,11 @@
 #include <cstdint>
 #include <pthread.h>
 #include <boost/noncopyable.hpp>
-#include "Mutex.h"
 
 namespace jupiter
 {
+
+class Mutex;
 
 class Condition: public boost::noncopyable
 {
