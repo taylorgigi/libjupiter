@@ -7,11 +7,11 @@
 
 #include "Channel.h"
 #include "EventLoop.h"
-#include <sys/epoll.h>
+#include <poll.h>
 
 const uint32_t Channel::NoneEvent = 0;
-const uint32_t Channel::ReadEvent = EPOLLIN;
-const uint32_t Channel::WriteEvent = EPOLLOUT;
+const uint32_t Channel::ReadEvent = POLLIN | POLLPRI;
+const uint32_t Channel::WriteEvent = POLLOUT;
 
 Channel::Channel(int fd__, EventLoop* event_loop__): fd_(fd__),event_loop_(event_loop__){
 
@@ -116,6 +116,7 @@ void Channel::remove(){
  */
 void Channel::enable_read(){
 	events_ |= ReadEvent;
+	update();
 }
 
 
@@ -124,6 +125,7 @@ void Channel::enable_read(){
  */
 void Channel::disable_read(){
 	events_ &= ~ReadEvent;
+	update();
 }
 
 
@@ -132,6 +134,7 @@ void Channel::disable_read(){
  */
 void Channel::enable_write(){
 	events_ |= WriteEvent;
+	update();
 }
 
 
@@ -140,6 +143,7 @@ void Channel::enable_write(){
  */
 void Channel::disable_wirte(){
 	events_ &= ~WriteEvent;
+	update();
 }
 
 
@@ -148,6 +152,7 @@ void Channel::disable_wirte(){
  */
 void Channel::enable_all(){
 	events_ |= (ReadEvent | WriteEvent);
+	update();
 }
 
 
@@ -156,6 +161,7 @@ void Channel::enable_all(){
  */
 void Channel::disable_all(){
 	events_ &= (~ReadEvent & ~WriteEvent);
+	update();
 }
 
 
