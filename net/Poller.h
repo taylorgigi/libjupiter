@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  Poller.h
 //  Implementation of the Class Poller
-//  Created on:      26-ÆßÔÂ-2019 16:13:15
+//  Created on:      26-ä¸ƒæœˆ-2019 17:47:08
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_81671B74_FFD8_4f47_9571_88C162661CB0__INCLUDED_)
-#define EA_81671B74_FFD8_4f47_9571_88C162661CB0__INCLUDED_
+#if !defined(EA_52BAEB18_6469_450f_BA29_567563FBAC2F__INCLUDED_)
+#define EA_52BAEB18_6469_450f_BA29_567563FBAC2F__INCLUDED_
 
 class Poller
 {
@@ -22,4 +22,4 @@ protected:
 	ChannelMap channels;
 
 };
-#endif // !defined(EA_81671B74_FFD8_4f47_9571_88C162661CB0__INCLUDED_)
+#endif // !defined(EA_52BAEB18_6469_450f_BA29_567563FBAC2F__INCLUDED_)

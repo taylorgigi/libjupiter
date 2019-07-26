@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  EPoller.h
 //  Implementation of the Class EPoller
-//  Created on:      26-ÆßÔÂ-2019 16:13:28
+//  Created on:      26-ä¸ƒæœˆ-2019 17:47:10
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_D327A46F_339B_41d9_9565_D6366336848D__INCLUDED_)
-#define EA_D327A46F_339B_41d9_9565_D6366336848D__INCLUDED_
+#if !defined(EA_5E4BA1D6_C2B4_44ea_824F_7905EB2835B0__INCLUDED_)
+#define EA_5E4BA1D6_C2B4_44ea_824F_7905EB2835B0__INCLUDED_
 
 #include "Poller.h"
 
@@ -30,4 +30,4 @@ private:
 	void update(int op, Channel* channel);
 
 };
-#endif // !defined(EA_D327A46F_339B_41d9_9565_D6366336848D__INCLUDED_)
+#endif // !defined(EA_5E4BA1D6_C2B4_44ea_824F_7905EB2835B0__INCLUDED_)

@@ -1,22 +1,19 @@
 ///////////////////////////////////////////////////////////
 //  Channel.cpp
 //  Implementation of the Class Channel
-//  Created on:      26-ÆßÔÂ-2019 16:12:58
+//  Created on:      26-ä¸ƒæœˆ-2019 17:47:05
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
 #include "Channel.h"
+#include "EventLoop.h"
+#include <sys/epoll.h>
 
+const uint32_t Channel::NoneEvent = 0;
+const uint32_t Channel::ReadEvent = EPOLLIN;
+const uint32_t Channel::WriteEvent = EPOLLOUT;
 
-Channel::Channel(){
-
-}
-
-
-
-
-
-Channel::Channel(int fd__, EventLoop* event_loop__){
+Channel::Channel(int fd__, EventLoop* event_loop__): fd_(fd__),event_loop_(event_loop__){
 
 }
 
@@ -30,16 +27,15 @@ Channel::~Channel(){
  * return file descriptor
  */
 int Channel::fd(){
-
-	return 0;
+	return fd_;
 }
 
 
 /**
  * set index
  */
-void Channel::index(int index_){
-
+void Channel::index(int index__){
+	index_ = index__;
 }
 
 
@@ -47,8 +43,7 @@ void Channel::index(int index_){
  * return index
  */
 int Channel::index(){
-
-	return 0;
+	return index_;
 }
 
 
@@ -56,15 +51,14 @@ int Channel::index(){
  * return events concerned about
  */
 uint32_t Channel::events(){
-
-	return  NULL;
+	return  events_;
 }
 
 
 /**
  * set read callback
  */
-void Channel::set_read_callback(EventCallBack callback){
+void Channel::set_read_callback(Channel::EventCallBack callback){
 
 }
 
@@ -72,7 +66,7 @@ void Channel::set_read_callback(EventCallBack callback){
 /**
  * set write callback
  */
-void Channel::set_write_callback(EventCallBack callback){
+void Channel::set_write_callback(Channel::EventCallBack callback){
 
 }
 
@@ -80,7 +74,7 @@ void Channel::set_write_callback(EventCallBack callback){
 /**
  * set close callback
  */
-void Channel::set_close_callback(EventCallBack callback){
+void Channel::set_close_callback(Channel::EventCallBack callback){
 
 }
 
@@ -88,7 +82,7 @@ void Channel::set_close_callback(EventCallBack callback){
 /**
  * set error callback
  */
-void Channel::set_error_callback(EventCallBack callback){
+void Channel::set_error_callback(Channel::EventCallBack callback){
 
 }
 
@@ -121,7 +115,7 @@ void Channel::remove(){
  * open read event
  */
 void Channel::enable_read(){
-
+	events_ |= ReadEvent;
 }
 
 
@@ -129,7 +123,7 @@ void Channel::enable_read(){
  * close read event
  */
 void Channel::disable_read(){
-
+	events_ &= ~ReadEvent;
 }
 
 
@@ -137,7 +131,7 @@ void Channel::disable_read(){
  * open write event
  */
 void Channel::enable_write(){
-
+	events_ |= WriteEvent;
 }
 
 
@@ -145,7 +139,7 @@ void Channel::enable_write(){
  * close write event
  */
 void Channel::disable_wirte(){
-
+	events_ &= ~WriteEvent;
 }
 
 
@@ -153,7 +147,7 @@ void Channel::disable_wirte(){
  * open read and write event
  */
 void Channel::enable_all(){
-
+	events_ |= (ReadEvent | WriteEvent);
 }
 
 
@@ -161,5 +155,37 @@ void Channel::enable_all(){
  * close read and write event
  */
 void Channel::disable_all(){
+	events_ &= (~ReadEvent & ~WriteEvent);
+}
+
+
+/**
+ * set read callback
+ */
+void Channel::set_read_callback(Channel::EventCallBack callback){
+
+}
+
+
+/**
+ * set write callback
+ */
+void Channel::set_write_callback(Channel::EventCallBack callback){
+
+}
+
+
+/**
+ * set close callback
+ */
+void Channel::set_close_callback(Channel::EventCallBack callback){
+
+}
+
+
+/**
+ * set error callback
+ */
+void Channel::set_error_callback(Channel::EventCallBack callback){
 
 }

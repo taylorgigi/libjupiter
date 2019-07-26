@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////
 //  Poller.cpp
 //  Implementation of the Class Poller
-//  Created on:      26-ÆßÔÂ-2019 16:13:15
+//  Created on:      26-ä¸ƒæœˆ-2019 17:47:08
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
