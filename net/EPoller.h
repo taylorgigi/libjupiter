@@ -1,39 +1,33 @@
-#ifndef JUPITER_EPOLLER_INCLUDE_H
-#define JUPITER_EPOLLER_INCLUDE_H
+///////////////////////////////////////////////////////////
+//  EPoller.h
+//  Implementation of the Class EPoller
+//  Created on:      26-ÆßÔÂ-2019 16:13:28
+//  Original author: Yang Shengming
+///////////////////////////////////////////////////////////
 
+#if !defined(EA_D327A46F_339B_41d9_9565_D6366336848D__INCLUDED_)
+#define EA_D327A46F_339B_41d9_9565_D6366336848D__INCLUDED_
 
-#include <vector>
 #include "Poller.h"
 
-struct epoll_event;
-
-
-namespace jupiter {
-
-
-
-class EPoller: public Poller
+class EPoller : public virtual Poller
 {
-    public:
-        EPoller();
-        ~EPoller() override;
-        void UpdateChannel(Channel* channel) override;
-        void RemoveChannel(Channel* channel) override;
-        void Poll(ChannelList& active_channels, int timeout_ms) override;
-    private:
-        typedef std::vector<struct epoll_event> EventList;
 
-        static const int InitEventListSize = 16;
-        int efd;
-        EventList events;
+public:
+	EPoller();
+	virtual ~EPoller();
+
+	virtual void update_channel(Channel* channel);
+	virtual void remove_channel(Channel* channel);
+	virtual uint64_t poll(ChannelList& active_channels);
+
+private:
+	/**
+	 * event epoll returns
+	 */
+	vector<struct epoll_event events> events;
+
+	void update(int op, Channel* channel);
+
 };
-
-
-
-
-}
-
-
-
-#endif
-
+#endif // !defined(EA_D327A46F_339B_41d9_9565_D6366336848D__INCLUDED_)

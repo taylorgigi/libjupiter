@@ -1,40 +1,55 @@
-#include <sys/epoll.h>
+///////////////////////////////////////////////////////////
+//  EPoller.cpp
+//  Implementation of the Class EPoller
+//  Created on:      26-ÆßÔÂ-2019 16:13:29
+//  Original author: Yang Shengming
+///////////////////////////////////////////////////////////
+
 #include "EPoller.h"
 
 
-namespace jupiter {
+EPoller::EPoller(){
 
-
-
-
-
-EPoller::EPoller():
-    efd(epoll_create1(EPOLL_CLOEXEC)),
-    events(InitEventListSize)
-{
-    if(efd < 0) {
-        printf("[E] EPoller::EPoller epoll_create1\n");
-    }
-}
-
-EPoller::~EPoller()
-{
-    close(efd);
-}
-
-void EPoller::UpdateChannel(Channel* channel)
-{
-}
-
-void EPoller::RemoveChannel(Channel* channel)
-{
-}
-
-void EPoller::Poll(ChannelList& active_channels, int timeout_ms)
-{
 }
 
 
 
+EPoller::~EPoller(){
+
+}
+
+
+
+
+
+/**
+ * update channel
+ */
+void EPoller::update_channel(Channel* channel){
+
+}
+
+
+/**
+ * delete channel
+ */
+void EPoller::remove_channel(Channel* channel){
+
+}
+
+
+/**
+ * get active channels
+ */
+uint64_t EPoller::poll(ChannelList& active_channels){
+
+	return  NULL;
+}
+
+
+/**
+ * update(internal)
+ */
+void EPoller::update(int op, Channel* channel){
 
 }
