@@ -64,7 +64,7 @@ private:
 	/**
 	 * write callback
 	 */
-	Channel::EventCallBack wirte_callback;
+	Channel::EventCallBack write_callback;
 	/**
 	 * callback when connection closed
 	 */

@@ -10,7 +10,7 @@
 #include <poll.h>
 
 const uint32_t Channel::NoneEvent = 0;
-const uint32_t Channel::ReadEvent = POLLIN | POLLPRI;
+const uint32_t Channel::ReadEvent = (POLLIN | POLLPRI);
 const uint32_t Channel::WriteEvent = POLLOUT;
 
 Channel::Channel(int fd__, EventLoop* event_loop__): fd_(fd__),event_loop_(event_loop__){
@@ -59,7 +59,7 @@ uint32_t Channel::events(){
  * set read callback
  */
 void Channel::set_read_callback(Channel::EventCallBack callback){
-
+	read_callback = callback;
 }
 
 
@@ -67,7 +67,7 @@ void Channel::set_read_callback(Channel::EventCallBack callback){
  * set write callback
  */
 void Channel::set_write_callback(Channel::EventCallBack callback){
-
+	write_callback = callback;
 }
 
 
@@ -75,7 +75,7 @@ void Channel::set_write_callback(Channel::EventCallBack callback){
  * set close callback
  */
 void Channel::set_close_callback(Channel::EventCallBack callback){
-
+	close_callback = callback;
 }
 
 
@@ -83,7 +83,7 @@ void Channel::set_close_callback(Channel::EventCallBack callback){
  * set error callback
  */
 void Channel::set_error_callback(Channel::EventCallBack callback){
-
+	error_callback = callback;
 }
 
 
@@ -91,7 +91,14 @@ void Channel::set_error_callback(Channel::EventCallBack callback){
  * handle events returned from looper
  */
 void Channel::handle_event(){
-
+	if((revents_ & POLLHUP) && !(revents_ & ReadEvent) && close_callback)
+		close_callback();
+	if ((revents_ & (POLLERR | POLLNVAL)) && error_callback)
+		error_callback();
+	if((revents_ & (ReadEvent | POLLHUP)) && read_callback)
+		read_callback();
+	if((revents_ & WriteEvent) && write_callback)
+		write_callback();
 }
 
 
@@ -99,7 +106,7 @@ void Channel::handle_event(){
  * updae channel
  */
 void Channel::update(){
-
+	event_loop_->update_channel(this);
 }
 
 
@@ -107,7 +114,7 @@ void Channel::update(){
  * remove channel from event loop
  */
 void Channel::remove(){
-
+	event_loop_->remove_channel(this);
 }
 
 
@@ -162,36 +169,4 @@ void Channel::enable_all(){
 void Channel::disable_all(){
 	events_ &= (~ReadEvent & ~WriteEvent);
 	update();
-}
-
-
-/**
- * set read callback
- */
-void Channel::set_read_callback(Channel::EventCallBack callback){
-
-}
-
-
-/**
- * set write callback
- */
-void Channel::set_write_callback(Channel::EventCallBack callback){
-
-}
-
-
-/**
- * set close callback
- */
-void Channel::set_close_callback(Channel::EventCallBack callback){
-
-}
-
-
-/**
- * set error callback
- */
-void Channel::set_error_callback(Channel::EventCallBack callback){
-
 }
