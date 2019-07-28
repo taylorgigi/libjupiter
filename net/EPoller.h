@@ -5,29 +5,42 @@
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_5E4BA1D6_C2B4_44ea_824F_7905EB2835B0__INCLUDED_)
-#define EA_5E4BA1D6_C2B4_44ea_824F_7905EB2835B0__INCLUDED_
+#ifndef LIBJUPITER_NET_EPOLLER_H
+#define LIBJUPITER_NET_EPOLLER_H
 
+#include <vector>
+#include <list>
 #include "Poller.h"
 
-class EPoller : public virtual Poller
-{
+class Channel;
 
+struct epoll_event;
+
+class EPoller : public Poller
+{
 public:
 	EPoller();
-	virtual ~EPoller();
+	~EPoller();
 
-	virtual void update_channel(Channel* channel);
-	virtual void remove_channel(Channel* channel);
-	virtual uint64_t poll(ChannelList& active_channels);
-
+	void update_channel(Channel* channel) override;
+	void remove_channel(Channel* channel) override;
+	uint64_t poll(ChannelList& active_channels) override;
 private:
+	void update(int op, Channel* channel);
+private:
+	/**
+	 * initial event list size
+	 */
+	static const int InitEventListSize {16};
+
+	/**
+	 * descriptor of epoll
+	*/
+	int efd {0};
+
 	/**
 	 * event epoll returns
 	 */
-	vector<struct epoll_event events> events;
-
-	void update(int op, Channel* channel);
-
+	std::vector<struct epoll_event> events;
 };
-#endif // !defined(EA_5E4BA1D6_C2B4_44ea_824F_7905EB2835B0__INCLUDED_)
+#endif // !defined(LIBJUPITER_NET_EPOLLER_H)

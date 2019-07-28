@@ -5,21 +5,17 @@
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
+#include <sys/epoll.h>
 #include "EPoller.h"
 
 
-EPoller::EPoller(){
-
+EPoller::EPoller(int timeout_): efd(epoll_create1(EPOLL_CLOEXEC)), events(InitEventListSize){
 }
-
 
 
 EPoller::~EPoller(){
 
 }
-
-
-
 
 
 /**
@@ -43,7 +39,7 @@ void EPoller::remove_channel(Channel* channel){
  */
 uint64_t EPoller::poll(ChannelList& active_channels){
 
-	return  NULL;
+	return  0;
 }
 
 

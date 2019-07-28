@@ -5,8 +5,8 @@
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_DD6A6F05_C975_4f16_8268_198920A973BA__INCLUDED_)
-#define EA_DD6A6F05_C975_4f16_8268_198920A973BA__INCLUDED_
+#ifndef LIBJUPITER_NET_CHANNEL_H
+#define LIBJUPITER_NET_CHANNEL_H
 
 #include <cstdint>
 #include <functional>
@@ -18,17 +18,16 @@ class Channel
 public:
 	typedef std::function<void(void)> EventCallBack;
 
-
 	Channel(int fd__ = -1, EventLoop* event_loop__ = nullptr);
 	~Channel();
 	int fd();
 	void index(int index__);
 	int index();
 	uint32_t events();
-	void set_read_callback(Channel::EventCallBack callback);
-	void set_write_callback(Channel::EventCallBack callback);
-	void set_close_callback(Channel::EventCallBack callback);
-	void set_error_callback(Channel::EventCallBack callback);
+	void set_read_callback(EventCallBack callback);
+	void set_write_callback(EventCallBack callback);
+	void set_close_callback(EventCallBack callback);
+	void set_error_callback(EventCallBack callback);
 	void handle_event();
 	void remove();
 	void enable_read();
@@ -37,13 +36,13 @@ public:
 	void disable_wirte();
 	void enable_all();
 	void disable_all();
-	void set_read_callback(Channel::EventCallBack callback);
-	void set_write_callback(Channel::EventCallBack callback);
-	void set_close_callback(Channel::EventCallBack callback);
-	void set_error_callback(Channel::EventCallBack callback);
 private:
 	void update();
 private:
+	static const uint32_t ReadEvent;
+	static const uint32_t WriteEvent;
+	static const uint32_t NoneEvent;
+
 	/**
 	 * file descriptor
 	 */
@@ -60,25 +59,23 @@ private:
 	/**
 	 * read callback
 	 */
-	Channel::EventCallBack read_callback;
+	EventCallBack read_callback;
 	/**
 	 * write callback
 	 */
-	Channel::EventCallBack write_callback;
+	EventCallBack write_callback;
 	/**
 	 * callback when connection closed
 	 */
-	Channel::EventCallBack close_callback;
+	EventCallBack close_callback;
 	/**
 	 * error callback
 	 */
-	Channel::EventCallBack error_callback;
+	EventCallBack error_callback;
 	/**
 	 * the event loop object
 	 */
 	EventLoop* event_loop_;
-	static const uint32_t ReadEvent;
-	static const uint32_t WriteEvent;
-	static const uint32_t NoneEvent;
 };
-#endif // !defined(EA_DD6A6F05_C975_4f16_8268_198920A973BA__INCLUDED_)
+
+#endif // !defined(LIBJUPITER_NET_CHANNEL_INCLUDE)
