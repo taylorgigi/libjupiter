@@ -13,7 +13,6 @@
 #include "Poller.h"
 
 class Channel;
-
 struct epoll_event;
 
 class EPoller : public Poller
@@ -24,7 +23,7 @@ public:
 
 	void update_channel(Channel* channel) override;
 	void remove_channel(Channel* channel) override;
-	uint64_t poll(ChannelList& active_channels) override;
+	uint64_t poll(int timeout, ChannelList& active_channels) override;
 private:
 	void update(int op, Channel* channel);
 private:

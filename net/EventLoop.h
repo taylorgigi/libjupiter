@@ -5,10 +5,13 @@
 //  Original author: Yang Shengming
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_35A87C75_6714_456f_8A41_A97D279BC92F__INCLUDED_)
-#define EA_35A87C75_6714_456f_8A41_A97D279BC92F__INCLUDED_
+#ifndef LIBJUPITER_NET_EVENT_LOOP_H
+#define LIBJUPITER_NET_EVENT_LOOP_H
 
+#include <memory>
 #include "Poller.h"
+
+class Poller;
 
 class EventLoop
 {
@@ -16,14 +19,13 @@ class EventLoop
 public:
 	EventLoop();
 	virtual ~EventLoop();
-	Poller *m_Poller;
 
 	void update_channel(Channel* channel);
 	void remove_channel(Channel* channel);
 	void loop();
 
 private:
-	Poller poller;
-
+	std::unique_ptr<Poller> poller;
 };
-#endif // !defined(EA_35A87C75_6714_456f_8A41_A97D279BC92F__INCLUDED_)
+
+#endif // !defined(LIBJUPITER_NET_EVENT_LOOP_H)
