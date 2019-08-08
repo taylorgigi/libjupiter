@@ -25,6 +25,9 @@ public:
 	void loop();
 
 private:
+	bool quit {false};
+	std::chrono::steady_clock::time_point poll_return_time;
+	Poller::ChannelList active_channels;
 	std::unique_ptr<Poller> poller;
 };
 
