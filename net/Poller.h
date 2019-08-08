@@ -10,6 +10,7 @@
 
 #include <cstdint>
 #include <list>
+#include <chrono>
 #include <unordered_map>
 
 namespace {
@@ -29,7 +30,7 @@ public:
 	virtual ~Poller() = default;
 	virtual void update_channel(Channel* channel) = 0;
 	virtual void remove_channel(Channel* channel) = 0;
-	virtual uint64_t poll(ChannelList& active_channels) = 0;
+	virtual std::chrono::steady_clock::time_point poll(ChannelList& active_channels) = 0;
 protected:
 	ChannelMap channels;
 };

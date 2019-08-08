@@ -24,6 +24,7 @@ public:
 	void index(int index__);
 	int index();
 	uint32_t events();
+	void revents(uint32_t v);
 	void set_read_callback(EventCallBack callback);
 	void set_write_callback(EventCallBack callback);
 	void set_close_callback(EventCallBack callback);

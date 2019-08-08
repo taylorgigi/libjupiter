@@ -56,6 +56,14 @@ uint32_t Channel::events(){
 
 
 /**
+ * set events returned from epoll
+ */
+void Channel::revents(uint32_t v){
+	revents_ = v;
+}
+
+
+/**
  * set read callback
  */
 void Channel::set_read_callback(Channel::EventCallBack callback){

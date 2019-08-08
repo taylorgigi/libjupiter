@@ -23,9 +23,10 @@ public:
 
 	void update_channel(Channel* channel) override;
 	void remove_channel(Channel* channel) override;
-	uint64_t poll(int timeout, ChannelList& active_channels) override;
+	std::chrono::steady_clock::time_point poll(int timeout, ChannelList& active_channels) override;
 private:
 	void update(int op, Channel* channel);
+	void fill_active_channels(int num, ChannelList& active_channels);
 private:
 	/**
 	 * initial event list size
