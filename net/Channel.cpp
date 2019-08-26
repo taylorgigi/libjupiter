@@ -103,7 +103,7 @@ void Channel::handle_event(){
 		close_callback();
 	if ((revents_ & (POLLERR | POLLNVAL)) && error_callback)
 		error_callback();
-	if((revents_ & (ReadEvent | POLLHUP)) && read_callback)
+	if((revents_ & (ReadEvent | POLLRDHUP)) && read_callback)
 		read_callback();
 	if((revents_ & WriteEvent) && write_callback)
 		write_callback();
