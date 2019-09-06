@@ -53,3 +53,11 @@ void EventLoop::loop(){
     }
     // to-do: debug log - loop quit
 }
+
+
+void EventLoop::stop(){
+    if(!quit) {
+        quit = true;
+        // to-do: debug log - eventloop stoped
+    }
+}

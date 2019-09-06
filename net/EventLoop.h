@@ -9,6 +9,7 @@
 #define LIBJUPITER_NET_EVENT_LOOP_H
 
 #include <memory>
+#include <chrono>
 #include "Poller.h"
 
 class Poller;
@@ -23,6 +24,7 @@ public:
 	void update_channel(Channel* channel);
 	void remove_channel(Channel* channel);
 	void loop();
+	void stop();
 
 private:
 	bool quit {false};
