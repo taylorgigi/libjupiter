@@ -6,3 +6,6 @@
 ///////////////////////////////////////////////////////////
 
 #include "Poller.h"
+
+Poller::Poller() = default;
+Poller::~Poller() = default;

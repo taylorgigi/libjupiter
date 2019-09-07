@@ -19,7 +19,7 @@ class EventLoop
 
 public:
 	EventLoop();
-	virtual ~EventLoop();
+	~EventLoop();
 
 	void update_channel(Channel* channel);
 	void remove_channel(Channel* channel);

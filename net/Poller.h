@@ -23,8 +23,8 @@ public:
 	typedef std::list<Channel*> ChannelList;
 	typedef std::unordered_map<int, Channel*> ChannelMap;
 
-	Poller() = default;
-	virtual ~Poller() = default;
+	Poller();
+	virtual ~Poller();
 	virtual void update_channel(Channel* channel) = 0;
 	virtual void remove_channel(Channel* channel) = 0;
 	virtual std::chrono::steady_clock::time_point poll(int timeout, ChannelList& active_channels) = 0;
