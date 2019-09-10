@@ -18,7 +18,7 @@ class Channel
 public:
 	typedef std::function<void(void)> EventCallBack;
 
-	Channel(int fd__ = -1, EventLoop* event_loop__ = nullptr);
+	Channel(int fd__, EventLoop* event_loop__);
 	~Channel();
 	int fd();
 	void index(int index__);
@@ -76,7 +76,7 @@ private:
 	/**
 	 * the event loop object
 	 */
-	EventLoop* event_loop_;
+	EventLoop* event_loop_ {nullptr};
 };
 
 #endif // !defined(LIBJUPITER_NET_CHANNEL_INCLUDE)
