@@ -11,6 +11,8 @@
 #include <cstdint>
 #include <functional>
 
+namespace jupiter {
+
 class EventLoop;
 
 class Channel
@@ -78,5 +80,7 @@ private:
 	 */
 	EventLoop* event_loop_ {nullptr};
 };
+
+} //namespace jupiter
 
 #endif // !defined(LIBJUPITER_NET_CHANNEL_INCLUDE)

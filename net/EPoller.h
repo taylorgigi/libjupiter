@@ -12,8 +12,11 @@
 #include <list>
 #include "Poller.h"
 
-class Channel;
 struct epoll_event;
+
+namespace jupiter {
+
+class Channel;
 
 class EPoller : public Poller
 {
@@ -43,4 +46,8 @@ private:
 	 */
 	std::vector<struct epoll_event> events;
 };
+
+} //namespace jupiter
+
 #endif // !defined(LIBJUPITER_NET_EPOLLER_H)
+

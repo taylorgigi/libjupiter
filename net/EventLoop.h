@@ -12,6 +12,8 @@
 #include <chrono>
 #include "Poller.h"
 
+namespace jupiter {
+
 class Poller;
 
 class EventLoop
@@ -33,4 +35,7 @@ private:
 	std::unique_ptr<Poller> poller;
 };
 
+} //namespace jupiter
+
 #endif // !defined(LIBJUPITER_NET_EVENT_LOOP_H)
+

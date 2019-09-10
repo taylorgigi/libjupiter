@@ -13,6 +13,7 @@
 #include <chrono>
 #include <unordered_map>
 
+namespace jupiter {
 
 class Channel;
 
@@ -31,4 +32,8 @@ public:
 protected:
 	ChannelMap channels;
 };
+
+} //namespace jupiter
+
 #endif // !defined(LIBJUPITER_NET_POLLER_H)
+

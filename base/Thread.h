@@ -1,5 +1,5 @@
-#ifndef JUPITER_LIB_THREAD_INCLUDE_H
-#define JUPITER_LIB_THREAD_INCLUDE_H
+#ifndef LIBJJUPITER_LIB_THREAD_INCLUDE_H
+#define LIBJJUPITER_LIB_THREAD_INCLUDE_H
 
 #include <string>
 #include <memory>

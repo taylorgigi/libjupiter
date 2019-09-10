@@ -1,5 +1,5 @@
-#ifndef JUPITER_CONDITION_INCLUDE_H
-#define JUPITER_CONDITION_INCLUDE_H
+#ifndef LIBJUPITER_CONDITION_INCLUDE_H
+#define LIBJUPITER_CONDITION_INCLUDE_H
 
 #include <cstdint>
 #include <pthread.h>

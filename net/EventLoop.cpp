@@ -13,6 +13,7 @@ namespace {
     const int PollerTimeOutMs = 10000;
 }
 
+namespace jupiter {
 
 EventLoop::EventLoop(){
 
@@ -61,3 +62,6 @@ void EventLoop::stop(){
         // to-do: debug log - eventloop stoped
     }
 }
+
+} //namespace jupiter
+

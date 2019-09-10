@@ -7,5 +7,10 @@
 
 #include "Poller.h"
 
+namespace jupiter {
+
 Poller::Poller() = default;
 Poller::~Poller() = default;
+
+} //namespace jupiter
+

@@ -16,6 +16,8 @@ namespace {
 	const int ChannelDeleted = 2;
 }
 
+namespace jupiter {
+
 
 EPoller::EPoller(int timeout_): efd(epoll_create1(EPOLL_CLOEXEC)), events(InitEventListSize){
 }
@@ -125,3 +127,7 @@ void EPoller::update(int op, Channel *channel){
 		; // to-do: error log
 	}
 }
+
+} //namespace jupiter
+
+

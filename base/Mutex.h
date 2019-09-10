@@ -1,5 +1,5 @@
-#ifndef JUPITER_MUTEX_INCLUDE_H
-#define JUPITER_MUTEX_INCLUDE_H
+#ifndef LIBJUPITER_MUTEX_INCLUDE_H
+#define LIBJJUPITER_MUTEX_INCLUDE_H
 
 #include <pthread.h>
 #include <boost/noncopyable.hpp>

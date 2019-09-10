@@ -9,6 +9,8 @@
 #include "EventLoop.h"
 #include <poll.h>
 
+namespace jupiter {
+
 const uint32_t Channel::NoneEvent = 0;
 const uint32_t Channel::ReadEvent = (POLLIN | POLLPRI);
 const uint32_t Channel::WriteEvent = POLLOUT;
@@ -178,3 +180,6 @@ void Channel::disable_all(){
 	events_ &= (~ReadEvent & ~WriteEvent);
 	update();
 }
+
+} //namespace jupiter
+
