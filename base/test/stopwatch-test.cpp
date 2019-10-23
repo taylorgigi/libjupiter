@@ -1,12 +1,12 @@
 #include <iostream>
 #include <unistd.h>
-#include "stopwatch.h"
+#include "Stopwatch.h"
 
 using namespace jupiter;
 
 int main()
 {
-    stopwatch watch1;
+    Stopwatch watch1;
     watch1.start();
     sleep(1);
     uint64_t t = watch1.stop();

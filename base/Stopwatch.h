@@ -14,11 +14,11 @@ namespace jupiter { // namespace jupiter
 
 
 
-class stopwatch
+class Stopwatch
 {
 public:
-    stopwatch(): start_time(std::chrono::steady_clock::time_point::min()) {}
-    ~stopwatch()
+    Stopwatch(): start_time(std::chrono::steady_clock::time_point::min()) {}
+    ~Stopwatch()
     {
         start_time = std::chrono::steady_clock::time_point::min();
     }
