@@ -17,10 +17,10 @@ namespace jupiter { // namespace jupiter
 class stopwatch
 {
 public:
-    stopwatch(): start_time(std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds>::min()) {}
+    stopwatch(): start_time(std::chrono::steady_clock::time_point::min()) {}
     ~stopwatch()
     {
-        start_time = std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds>::min();
+        start_time = std::chrono::steady_clock::time_point::min();
     }
 
     //@return start timing
@@ -32,22 +32,22 @@ public:
     //@return true if stopwatch has been started, otherwith false
     bool is_started()
     {
-        return(start_time == std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds>::min());
+        return(start_time == std::chrono::steady_clock::time_point::min());
     }
 
     //@return elapsed time(milliseconds) relative to start time
     uint64_t stop()
     {
-        if(start_time != std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds>::min()) {
-	    std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds> now_time = std::chrono::steady_clock::now();
+        if(start_time != std::chrono::steady_clock::time_point::min()) {
+	    std::chrono::steady_clock::time_point now_time = std::chrono::steady_clock::now();
 	    std::chrono::milliseconds t = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - start_time);
-	    start_time = std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds>::min();
+	    start_time = std::chrono::steady_clock::time_point::min();
 	    return t.count();
 	}
 	return 0;
     }
 private:
-    std::chrono::time_point<std::chrono::steady_clock,std::chrono::milliseconds> start_time;
+    std::chrono::steady_clock::time_point start_time;
 };
 
 
