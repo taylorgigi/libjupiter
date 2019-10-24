@@ -35,12 +35,12 @@ public:
         return(start_time == std::chrono::steady_clock::time_point::min());
     }
 
-    //@return elapsed time(milliseconds) relative to start time
+    //@return elapsed time(nanoseconds) relative to start time
     uint64_t stop()
     {
         if(start_time != std::chrono::steady_clock::time_point::min()) {
 	    std::chrono::steady_clock::time_point now_time = std::chrono::steady_clock::now();
-	    std::chrono::milliseconds t = std::chrono::duration_cast<std::chrono::milliseconds>(now_time - start_time);
+	    std::chrono::nanoseconds t = std::chrono::duration_cast<std::chrono::nanoseconds>(now_time - start_time);
 	    start_time = std::chrono::steady_clock::time_point::min();
 	    return t.count();
 	}
