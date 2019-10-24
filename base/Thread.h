@@ -18,6 +18,7 @@ class Thread: public boost::noncopyable
 		~Thread();
 		void launch();
 		void join();
+		void set_affinity(int cpu);
 	private:
 		bool					launched;
 		ThreadFunc 				func;
