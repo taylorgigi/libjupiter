@@ -18,6 +18,8 @@ class Thread: public boost::noncopyable
 		~Thread();
 		void launch();
 		void join();
+
+		// this func should be called after launch() has been called
 		void set_affinity(int cpu);
 	private:
 		bool					launched;

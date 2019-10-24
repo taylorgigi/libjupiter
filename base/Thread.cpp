@@ -67,10 +67,12 @@ namespace jupiter
 
 	void Thread::set_affinity(int cpu)
 	{
-		cpu_set_t cpuset;
-		CPU_ZERO(&cpuset);
-		CPU_SET(cpu, &cpuset);
-		pthread_setaffinity_np(ptid, sizeof(cpuset), &cpuset);
+		if(launched) {
+			cpu_set_t cpuset;
+			CPU_ZERO(&cpuset);
+			CPU_SET(cpu, &cpuset);
+			pthread_setaffinity_np(ptid, sizeof(cpuset), &cpuset);
+		}
 	}
 } // namespace jupiter
 
