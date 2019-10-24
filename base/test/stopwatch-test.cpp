@@ -10,7 +10,7 @@ int main()
     watch1.start();
     sleep(1);
     uint64_t t = watch1.stop();
-    std::cout << "cost: " << t << " milliseconds" << std::endl;
+    std::cout << "cost: " << t << " nanoseconds" << std::endl;
 
     return 0;
 }
