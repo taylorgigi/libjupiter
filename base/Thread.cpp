@@ -55,6 +55,7 @@ namespace jupiter
 			delete arg;
 			abort();
 		}
+		num_created_++;
 	}
 
 	void Thread::join()
@@ -62,6 +63,7 @@ namespace jupiter
 		if(launched) {
 			pthread_join(ptid, NULL);
 			launched = false;
+			num_created_--;
 		}
 	}
 
