@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <sys/sysinfo.h>
 #include "Thread.h"
 
 
@@ -8,8 +9,8 @@ struct ThreadArg
 {
 	typedef jupiter::Thread::ThreadFunc ThreadFunc;
 
-	ThreadFunc 				func;
-	std::string 			name;
+	ThreadFunc 		func;
+	std::string 		name;
 	std::weak_ptr<pid_t> 	tid;
 
 	ThreadArg(ThreadFunc func_, std::string& name_, std::shared_ptr<pid_t>& tid_): func(func_), name(name_), tid(tid_)
@@ -67,13 +68,18 @@ namespace jupiter
 		}
 	}
 
-	void Thread::set_affinity(int cpu)
+	void Thread::set_affinity(uint32_t cpu_mask)
 	{
 		if(launched) {
 			cpu_set_t cpuset;
 			CPU_ZERO(&cpuset);
-			CPU_SET(cpu, &cpuset);
-			pthread_setaffinity_np(ptid, sizeof(cpuset), &cpuset);
+			for(int i=0; i<32; ++i) {
+				if((uint32_t)1 << i)
+					CPU_SET(i, &cpuset);
+			}
+			int ret = pthread_setaffinity_np(ptid, sizeof(cpuset), &cpuset);
+			if(ret)
+				;// to-do-list: error log
 		}
 	}
 } // namespace jupiter

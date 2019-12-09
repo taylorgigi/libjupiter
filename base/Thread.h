@@ -19,8 +19,10 @@ class Thread: public boost::noncopyable
 		~Thread();
 		void launch();
 		void join();
-		// this func should be called after launch() has been called
-		void set_affinity(int cpu);
+		//@brief				set cpu affinity
+		//@param	cpu_mask	[IN]	cpu mask, support multi-core mask
+		//@note					this func should be called after launch() has been called
+		void set_affinity(uint32_t cpu_mask);
 
 		static uint32_t num_created() { return num_created_.load(); }
 	private:
