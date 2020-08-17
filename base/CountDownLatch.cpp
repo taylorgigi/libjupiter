@@ -1,7 +1,11 @@
-#include "CountDownLatch.h"
 #include "Mutex.h"
+#include "Condition.h"
+#include "CountDownLatch.h"
 
-CountDownLatch::CountDownLatch(uint32_t count)
+namespace jupiter
+{
+
+CountDownLatch::CountDownLatch(int count)
 : cond(mutex),
 count_(count)
 {
@@ -31,3 +35,5 @@ int CountDownLatch::get_count()
     MutexGuard guard(mutex);
     return count_;
 }
+
+} // namespace jupiter

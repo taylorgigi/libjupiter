@@ -1,6 +1,6 @@
 #include <iostream>
 #include <unistd.h>
-#include "Stopwatch.h"
+#include "../Stopwatch.h"
 
 using namespace jupiter;
 

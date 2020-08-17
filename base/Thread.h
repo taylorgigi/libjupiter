@@ -26,13 +26,15 @@ class Thread: public boost::noncopyable
 
 		static uint32_t num_created() { return num_created_.load(); }
 	private:
-		static std::atomic<uint32_t>		num_created_ {0};
+		static std::atomic<uint32_t>		num_created_;
 		bool					launched;
 		ThreadFunc 				func;
 		std::shared_ptr<pid_t>	tid;
 		pthread_t				ptid;
 		std::string				name;
 };
+
+std::atomic<uint32_t> Thread::num_created_ = 0;
 
 } // namespace jupiter
 
