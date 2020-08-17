@@ -37,6 +37,7 @@ void *launch(void *arg_)
 
 namespace jupiter
 {
+    std::atomic<uint32_t> Thread::num_created_ = 0;
 
 	Thread::Thread(ThreadFunc func_, const char *name_): launched(false), func(func_), name(name_)
 	{

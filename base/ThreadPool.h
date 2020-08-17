@@ -8,6 +8,7 @@
 #include <atomic>
 #include <deque>
 #include <functional>
+#include <memory>
 #include <string>
 #include <boost/noncopyable.hpp>
 
@@ -23,8 +24,8 @@ public:
 
     ThreadPool(const std::string& name = "ThreadPool");
     ~ThreadPool();
-    void max_tasks(int v);
-    int max_tasks() const;
+    void set_max_tasks(int v);
+    int num_of_tasks() const;
     void start(int num_threads);
     void stop();
     void run(Task task);
@@ -35,7 +36,7 @@ private:
 private:
     std::atomic<bool> running_;
     std::string name_;
-    Mutex mutex_;
+    mutable Mutex mutex_;
     int max_tasks_;
     Condition not_empty_;
     Condition not_full_;

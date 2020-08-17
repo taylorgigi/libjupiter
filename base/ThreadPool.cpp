@@ -4,6 +4,7 @@
 
 #include "Mutex.h"
 #include "Condition.h"
+#include "Thread.h"
 #include "ThreadPool.h"
 
 namespace jupiter {
@@ -24,7 +25,7 @@ void ThreadPool::set_max_tasks(int v)
     max_tasks_ = v;
 }
 
-int ThreadPool::num_of_tasks()
+int ThreadPool::num_of_tasks() const
 {
     MutexGuard guard(mutex_);
     return queue_.size();
@@ -37,8 +38,8 @@ void ThreadPool::start(int num_threads)
     for(auto i=0; i<num_threads; ++i) {
         char buf[64] = {0};
         sprintf(buf, "%s-%d", name_.c_str(), i);
-        threads_.emplace_back(std::make_unique<Thread>(std::bind(ThreadPool::run_in_thread, this), buf));
-        threads_[i]->run();
+        threads_.emplace_back(std::make_unique<Thread>(std::bind(&ThreadPool::run_in_thread, this), buf));
+        threads_[i]->launch();
     }
 }
 
@@ -64,7 +65,7 @@ void ThreadPool::run(Task task)
     not_empty_.notify();
 }
 
-Task ThreadPool::take()
+ThreadPool::Task ThreadPool::take()
 {
     MutexGuard guard(mutex_);
     while(queue_.empty()) {

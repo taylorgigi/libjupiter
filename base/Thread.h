@@ -34,8 +34,6 @@ class Thread: public boost::noncopyable
 		std::string				name;
 };
 
-std::atomic<uint32_t> Thread::num_created_ = 0;
-
 } // namespace jupiter
 
 #endif
