@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
     latch.wait();
     printf("thread pool stopping ...\n");
     thread_pool.stop();
+    printf("thread pool still have %lu tasks\n", thread_pool.num_of_tasks());
     printf("program exit\n");
 
     return 0;
