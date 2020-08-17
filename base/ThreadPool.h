@@ -20,12 +20,12 @@ class Thread;
 
 class ThreadPool : public boost::noncopyable {
 public:
-    typedef std::function<void(void)> Task;
+    typedef std::function<void()> Task;
 
     ThreadPool(const std::string& name = "ThreadPool");
     ~ThreadPool();
-    void set_max_tasks(int v);
-    int num_of_tasks() const;
+    void set_max_tasks(size_t v);
+    size_t num_of_tasks() const;
     void start(int num_threads);
     void stop();
     void run(Task task);
@@ -37,7 +37,7 @@ private:
     std::atomic<bool> running_;
     std::string name_;
     mutable Mutex mutex_;
-    int max_tasks_;
+    size_t max_tasks_;
     Condition not_empty_;
     Condition not_full_;
     std::deque<Task> queue_;

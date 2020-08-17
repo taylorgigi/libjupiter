@@ -11,3 +11,6 @@ target_link_libraries(stopwatch-test base pthread)
 
 add_executable(count_down_latch-test count_down_latch-test.cpp)
 target_link_libraries(count_down_latch-test base pthread)
+
+add_executable(thread_pool-test thread_pool-test.cpp)
+target_link_libraries(thread_pool-test base pthread)

@@ -20,12 +20,12 @@ ThreadPool::ThreadPool(const std::string &name)
 ThreadPool::~ThreadPool() {
 }
 
-void ThreadPool::set_max_tasks(int v)
+void ThreadPool::set_max_tasks(size_t v)
 {
     max_tasks_ = v;
 }
 
-int ThreadPool::num_of_tasks() const
+size_t ThreadPool::num_of_tasks() const
 {
     MutexGuard guard(mutex_);
     return queue_.size();
@@ -68,7 +68,7 @@ void ThreadPool::run(Task task)
 ThreadPool::Task ThreadPool::take()
 {
     MutexGuard guard(mutex_);
-    while(queue_.empty()) {
+    while(running_.load() && queue_.empty()) {
         not_empty_.wait();
     }
     Task task;
