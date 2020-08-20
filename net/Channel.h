@@ -19,6 +19,9 @@ class Channel
 {
 public:
 	typedef std::function<void(void)> EventCallBack;
+    static const uint32_t ReadEvent;
+    static const uint32_t WriteEvent;
+    static const uint32_t NoneEvent;
 
 	Channel(int fd__, EventLoop* event_loop__);
 	~Channel();
@@ -41,10 +44,6 @@ public:
 	void disable_all();
 private:
 	void update();
-private:
-	static const uint32_t ReadEvent;
-	static const uint32_t WriteEvent;
-	static const uint32_t NoneEvent;
 
 	/**
 	 * file descriptor

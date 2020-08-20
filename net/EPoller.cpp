@@ -6,7 +6,9 @@
 ///////////////////////////////////////////////////////////
 
 #include <chrono>
+#include <cerrno>
 #include <sys/epoll.h>
+#include "Channel.h"
 #include "EPoller.h"
 
 
@@ -19,7 +21,7 @@ namespace {
 namespace jupiter {
 
 
-EPoller::EPoller(int timeout_): efd(epoll_create1(EPOLL_CLOEXEC)), events(InitEventListSize){
+EPoller::EPoller(): efd(epoll_create1(EPOLL_CLOEXEC)), events(InitEventListSize){
 }
 
 
@@ -68,7 +70,7 @@ void EPoller::update_channel(Channel* channel){
 void EPoller::remove_channel(Channel* channel){
 	int fd = channel->fd();
 	auto it = channels.find(fd);
-	if(it != channels.end() && *it == channel) {
+	if(it != channels.end() && it->second == channel) {
 		channels.erase(fd);
 		int index = channel->index();
 		if(index == ChannelAdded)
@@ -76,7 +78,7 @@ void EPoller::remove_channel(Channel* channel){
 		channel->index(ChannelNew);
 		// to-do: debug log
 	}
-	else if(*it != channel)
+	else if(it->second != channel)
 		; // to-do: error log
 	else
 		; // to-do: error log
@@ -87,7 +89,7 @@ void EPoller::remove_channel(Channel* channel){
  * get active channels
  */
 std::chrono::steady_clock::time_point EPoller::poll(int timeout, ChannelList& active_channels){
-	int num = epoll_wait(efd, &events.begin(), events.size(), timeout);
+	int num = epoll_wait(efd, &*events.begin(), events.size(), timeout);
 	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 	if(num > 0) {
 		fill_active_channels(num, active_channels);
@@ -108,7 +110,7 @@ std::chrono::steady_clock::time_point EPoller::poll(int timeout, ChannelList& ac
  */
 void EPoller::fill_active_channels(int num, ChannelList& active_channels){
 	for(int i=0; i<num; ++i) {
-		Channel* channel = static_cast<Channel*>(events[i].ptr);
+		Channel* channel = static_cast<Channel*>(events[i].data.ptr);
 		channel->revents(events[i].events);
 		active_channels.push_back(channel);
 	}
@@ -123,7 +125,7 @@ void EPoller::update(int op, Channel *channel){
 	struct epoll_event event;
 	event.events = channel->events();
 	event.data.ptr = channel;
-	if(epoll_ctl(efd, op, &event) < 0) {
+	if(epoll_ctl(efd, op, fd, &event) < 0) {
 		; // to-do: error log
 	}
 }
