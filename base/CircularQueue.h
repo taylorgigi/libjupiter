@@ -26,7 +26,7 @@ public:
     template <typename U>
     void enqueue(U&& v) {
         MutexGuard guard(mutex_);
-        buffer_[wp_] = v;
+        buffer_[wp_] = std::move(v);
         if (full_())
             rp_ = (rp_ + 1) % capacity_;
         else
@@ -38,7 +38,7 @@ public:
         MutexGuard guard(mutex_);
         if (empty_())
             return false;
-        v = buffer_[rp_];
+        v = std::move(buffer_[rp_]);
         rp_ = (rp_ + 1) % capacity_;
         --size_;
         return true;
