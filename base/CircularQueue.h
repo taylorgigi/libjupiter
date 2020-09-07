@@ -12,7 +12,8 @@ namespace jupiter {
 
 
 template<typename T>
-class CircularQueue {
+class CircularQueue
+{
 public:
     explicit CircularQueue(size_t capacity)
             : rp_(0),
